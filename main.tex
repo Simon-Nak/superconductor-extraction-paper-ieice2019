@@ -1,14 +1,87 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
-\title{Extraction and linking of supercondacting material in papers}
-\author{Luca Foppiano}
+\title{Mining of Superconductors materials and properties from scientific papers}
+
+\author{
+  Author\\
+  MaDIS, National Institute for Material Science, Tsukuba\\
+  \texttt{email1@nims.go.jp}
+}
 \date{February 2019}
 
 \begin{document}
 
 \maketitle
 
+\tableofcontents
+
+\pagebreak
+
 \section{Introduction}
+% What is the problem we are trying to solve? 
+
+The goal of this project is to automatically mine data from articles and books extracting meaningful information for the respective domain. More generally we are trying to find a reliable way to extract relevant information from paper and link them according to their relationship. 
+
+While each domain has different styles, policies and approaches we still believe the general technique can be partially or entirely reused having with some slight adaptations. 
+
+In this paper we propose our solution, considering the sub-domain of the superconductor material research. 
+
+Yes in the preliminary analysis we have found similarity between superconductor field and others, like for example polymers, therefore we believe that a more generic approach would be worth the effort. 
+
+
+\section{Requirements}
+%% How research is made and what are the point of improvements
+
+In this section we discuss the superconductor research requirements on two main aspects. First we describe how the research is done, which tasks are performed, and which information and resources are used. Second we discuss more in details the properties and information that domain experts consider important for their daily work. 
+
+% from wikipedia - begin 
+Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature. It was discovered by Dutch physicist Heike Kamerlingh Onnes on April 8, 1911, in Leiden. Like ferromagnetism and atomic spectral lines, superconductivity is a quantum mechanical phenomenon.
+% end
+The superconductor research aims to find new condition on known materials for which they show superconductivity, usually by tuning other parameters like pressure, magnetic fields, in order to obtain the highest temperature possible (reason why it is called "high temperature superconductivity"). 
+
+Research are also interested to know whether new material compositions with superconductorivity characteristics can be created. The combination are several: for example by combining small layers of different non-superconductor materials, or mixing superconductors and non superconductors material, or, testing additional composition by changing other characteristics, like pressure. 
+
+\subsubsection{Properties of interests}
+In the next section we discuss what are the properties of interest for the superconductor domain experts. 
+
+Tc or critical temperature, is the temperature for which a specific material shows superconductivity characteristics (0 resistance). 
+
+The passage between normal conductivity to superconductivity is not sudden, therefore some papers (depending on the result of the experiment) mention the Tc\textsubscript{onset} and the Tc\textsubscript{offset} as transition temperatures
+
+Hc is the critical magnetic field and it's measured in ...., sometimes it's specified in an interval Hc\textsubscript{1} as the lower critical field and Hc\textsubscript{2} as the higher critical field. 
+
+Ic is the critical current
+
+Jc is the critical current density
+
+H\textsubscript{ivr} is the irreversibity field 
+
+More interesting is that these information might be in the text or in figures as plot, showing how the material react (critical temperature) against other parameters (example in Figure Xy, the Tc variation by changing the composition or the percentage of certain materials)
+
+% here I cannot really write any meaningful sentence, so I what I had in my notes and we add sentences around it later :-) 
+% Sample preparation 
+% cristal composition: simple cristal, polycristal, thin film or wire
+
+ideally domain expert would need to quickly get to the plots from the material name, in order to immediately know its most important characteristics. 
+
+% Magnetisation
+
+
+
+
+
+\section{State of the art} 
+
+\section{Method and problems}
+
+\section{Solution}
+
+\section{Conclusion}
+
+\listoffigures
+
+\bibliography{references}
+\bibliographystyle{plain}
 
 \end{document}
