@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{tabularx}
 
 \title{Mining of Superconductors materials and properties from scientific papers}
 
@@ -21,13 +22,10 @@
 \section{Introduction}
 % What is the problem we are trying to solve? 
 
-The goal of this project is to automatically mine data from articles and books extracting meaningful information for the respective domain. More generally we are trying to find a reliable way to extract relevant information from paper and link them according to their relationship. 
+The goal of this project is to automatically extract domain specific information from scientific articles. Such information are divided into several component, usually names associated to a material together with their properties. This imply not only extraction but also to find a reliable way to cluster or link different properties to the material described. 
 
-While each domain has different styles, policies and approaches we still believe the general technique can be partially or entirely reused having with some slight adaptations. 
-
-In this paper we propose our solution, considering the sub-domain of the superconductor material research. 
-
-Yes in the preliminary analysis we have found similarity between superconductor field and others, like for example polymers, therefore we believe that a more generic approach would be worth the effort. 
+In this paper we propose our solution when working on sub-domain of the superconductor material research. 
+While each domain has different styles, policies and approaches we still believe a general technique can be partially or entirely reused across domains. In our preliminary assessment we have found several common "problems" between the superconductor and polymer domains, we believe that a more generic approach is still worth the effort. 
 
 
 \section{Requirements}
@@ -38,60 +36,107 @@ In this section we discuss the superconductor research requirements on two main 
 % from wikipedia - begin 
 Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature. It was discovered by Dutch physicist Heike Kamerlingh Onnes on April 8, 1911, in Leiden. Like ferromagnetism and atomic spectral lines, superconductivity is a quantum mechanical phenomenon.
 % end
-The superconductor research aims to find new condition on known materials for which they show superconductivity, usually by tuning other parameters like pressure, magnetic fields, in order to obtain the highest temperature possible (reason why it is called "high temperature superconductivity"). 
+The superconductor research aims to find new condition on known materials where no resistance is measured (thus it's said "they show superconductivity characteristic"), usually by tuning external conditions like pressure, magnetic fields, temperature or by changing internal structure of a material like having different compositions (called doping percentage) or combining different type of materials.
 
-Research are also interested to know whether new material compositions with superconductorivity characteristics can be created. The combination are several: for example by combining small layers of different non-superconductor materials, or mixing superconductors and non superconductors material, or, testing additional composition by changing other characteristics, like pressure. 
+The goal to obtain the highest temperature possible for which superconductivity characteristics are showing. Ideally room temperature. This is why papers call it "high temperature superconductivity". 
+
+Another aspect of superconductivity research is to discover if some new material (usually a composition) might show superconductivity characteristics. The combination are several: for example by combining small layers of different non-superconductor materials, or mixing superconductors and non superconductors material, or, testing additional composition by changing other characteristics, like pressure. 
+
+To facilitate such tasks, it's imperative to have a database (or knowledge base) where these information are decomposed and presented for each material. 
+NIMS database Supercon it's a manually curated database containing about 32k inorganic superconductors definitions, discovered in papers. 
+The goal of this project is to find a realiable way to generate such database automatically. 
 
 \subsubsection{Properties of interests}
-In the next section we discuss what are the properties of interest for the superconductor domain experts. 
+In the next section we present which information the domain experts in superconductors are interested to be extracted. 
 
-Tc or critical temperature, is the temperature for which a specific material shows superconductivity characteristics (0 resistance). 
+\begin{itemize}
+    \item T\textsubscript{c} (Critical Temperature): The temperature recorded for which a specific material shows superconductivity characteristics (zero or lower resistance). Superconductivity is usually not happening sudden, T\textsubscript{c} is sometimes split into two phases T\textsubscript{onset} and T\textsubscript{offset}.
+    \item T\textsubscript{onset} (Onset temperature): Temperature where the resistance is still \textgreater 0
+    \item T\textsubscript{offset} (Offset temperature): Temperature where the resistance is 0
+    \item H\textsubscript{c}: Critical current measured in combination with T\textsubscript{c}.
+    \item I\textsubscript{c}: Critical current measured in combination with T\textsubscript{c}.
+    \item J\textsubscript{c} (Critical current density): Critical current density measured in combination with T\textsubscript{c} and I\textsubscript{c}.
+    \item H\textsubscript{ivr} (Irreversibility field) % need to describe
+    \item Cristal structure space group % need to describe
+    \item Sample preparation:
+    \begin{itemize}
+        \item single crystal
+        \item poly cristal 
+        \item thin film
+        \item wire
+    \end{itemize}% need to describe
+    \item plots or charts
+    % here I cannot really write any meaningful sentence, so I what I had in my notes and we add sentences around it later :-) 
+    \begin{itemize}
+        \item T\textsubscript{c} vs x (with x any special characteristics described in the paper (\% doping, pressure, etc..) 
+        \item Magnetisation vs T\textsubscript{c}
+    \end{itemize}
+\end{itemize}
 
-The passage between normal conductivity to superconductivity is not sudden, therefore some papers (depending on the result of the experiment) mention the Tc\textsubscript{onset} and the Tc\textsubscript{offset} as transition temperatures
-
-Hc is the critical magnetic field and it's measured in ...., sometimes it's specified in an interval Hc\textsubscript{1} as the lower critical field and Hc\textsubscript{2} as the higher critical field. 
-
-Ic is the critical current
-
-Jc is the critical current density
-
-H\textsubscript{ivr} is the irreversibity field 
-
-More interesting is that these information might be in the text or in figures as plot, showing how the material react (critical temperature) against other parameters (example in Figure Xy, the Tc variation by changing the composition or the percentage of certain materials)
-
-% here I cannot really write any meaningful sentence, so I what I had in my notes and we add sentences around it later :-) 
-% Sample preparation 
-% christal composition: simple cristal, polycristal, thin film or wire
-
-ideally domain expert would need to quickly get to the plots from the material name, in order to immediately know its most important characteristics. 
-
-% Magnetisation
-
-
+When researchers describe this characteristics, they don't follow a single approach while sometimes such characteristics are written down in text, they can be presented as plots. 
+In our solution problem we have an additional task, then, which is to extract such plots and provide a quick access. A domain expert could quickly evaluate whether the paper is interesting, just by looking at the plots. 
 
 \section{Annotations}
-Machine Learning bring many advantages in term of accuracy and precision [add ref], tolerance with noise [add references] and flexibility toward items that were never seen before. 
+% In this section we are discussing the process of annotation, in particular: 1. how did we find the right balance of annotation, 2.  results in term of IAA, 
 
-The drawback in the design of a machine learning system is to find the right balance between efficiency toward the task to be solved and feasibility. This imply a sort of partization into simpler subtasks which can be easily described and solved. 
+Machine Learning bring many advantages in term of accuracy and precision [add ref], tolerance with noise [add references] and flexibility in recognising entities that have never been seen before. 
+Unfortunately machine learning systems require training data, and depending of the task they can or cannot be available.
 
-As part of the design of the system, it is inevitable to avoid the passage toward the training data definition and the writing of the annotation guidelines. 
+When training data is not available, is a necessity to create it, however the process is simple and requires several cycles of iterative work.
 
-The manual define clearly the prepareation of tiraning data as a task for domain expert people, however one of the more succesfull approaches in our experience is to leave this as a secondary step. 
+From the practical point of view:  
+\begin{enumerate}
+    \item it's very expensive in term of time and resources
+    \item the time span can be very long before the system starts performing
+    \item is a tedious and frustrating work for annotators (usually domain experts feeling overly-skilled, thus less motivated)
+    \item it's impossible to be fast and precise 
+\end{enumerate}
+    
+The first important step is always to understand the problem and try to find the simplest approach; find the right balance of accuracy and efficiency. 
 
-The first step is to agree internally, among engineers and data scientists that are actively designing the machine learning system on a sort of simplest approach. This can be further validated by domain expert people. 
+\subsubsection{Guidelines}
 
-Therefore as a first step we, engineers and data scientists, have annotated two sample documents, without any special constraints, to the best to our knowledge and then we have compared the results. 
+Annotation guidelines is the set of rules and agreement that are defined for the annotation task. It's a living documentation describing how each entity should be annotated, including special cases. 
+Like the training data itself, the process of writing guidelines requires an iterative approach with further improvement for each annotation cycle. 
 
-This approach bring two advantages: 1. it is likely to hit more problems by actively performing the task, therefore to think to possible shortcut, solution or additional constraints, and 2. the engineers are better prepared to justify eventual decision to the domain experts. 
+Annotation guidelines are written as a collaborative work between domain experts and engineers. Before involving the domain experts, however a reasonable approach is to agree a common understanding "internally" among engineers and data scientists that are actively designing the machine learning system. 
+This approach bring two advantages: 
+\begin{itemize}
+    \item assessment and knowledge of the domain, 
+    \item it is likely to hit more problems than what imagined by actively performing the task 
+    \item early issues help to think more proactively about possible shortcut, solution or additional constraints, and 
+    \item we would be better prepared to justify eventual decision to the domain experts
+\end{itemize}
 
-first iteration annotation
+The outcome is then discussed and validated with domain experts. 
 
-the goal was... 
+\subsubsection{Approach for Superconductors}
+In this section we describe in detail the first and second iteration and further discussions emerged from our work.
+
+% first iteration
+As a first step we, engineers and data scientists, have annotated two sample documents, without any special constraints, to the best to our knowledge and then we have compared the results. 
+
+the goal was to get a first understanding of the papers and exchange our unique view about the task to be solved. 
 
 here the result...
 
 
-What has emerged
+What has emerged were the following points: 
+\begin{itemize}
+    \item Annotation should be short, and should be split when possible, for example "the Critical Temperature (Tc) should be annotated as <ann1>Critical Temperature</ann2> (<ann1>Tc<ann1>). 
+    \item This model should be always be considered as a complementary model to the grobid-quantities masurement recognition, which already provide a general approach to masurement recognition and normalisation. 
+
+    \item We annotated the following items
+    \begin{itemize}
+        \item <supercon> to identify any superconductor material (for example LaFe03NaCl2, but also "Ba111 serie")
+        \item <substitution> to identify substitution of values, for example LaFe\textsubscript{x} might have specified values of x 
+        \item Critical temperature should be annotated as <tc>
+        \item <propertyValue> define values of any property of a supercondcutor material 
+        \item adjective to Tc should not be annotated (e.g. higher Tc, should be considered only Tc)
+    \end{itemize}
+\end{itemize}
+
+
 
 
 
