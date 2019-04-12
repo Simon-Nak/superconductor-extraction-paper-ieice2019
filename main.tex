@@ -1,29 +1,25 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{authblk}
 \usepackage{tabularx}
 
 \title{Proposal of Automatic Extraction Framework of Superconductors related Information from Scientific literature}
 
-\author{
-  Author\\
-  MaDIS, National Institute for Material Science, Tsukuba\\
-  \texttt{email1@nims.go.jp}
-}
+\author[1]{Luca Foppiano\thanks{FOPPIANO.Luca@nims.go.jp}}
+\author[1]{Thaer Moustafá Dieb\thanks{MOUSTAFADIEB.Thaer@nims.go.jp}}
+\author[1]{Akira Suzuki\thanks{SUZUKI.Akira3@nims.go.jp}}
+\author[1]{Masashi Ishii\thanks{ISHII.Masashi@nims.go.jp}}
+\affil[1]{MaDIS, National Institute for Materials Science}
+
 \date{February 2019}
 
 \begin{document}
 
 \maketitle
 
-\tableofcontents
-
-\pagebreak
-
 \begin{abstract}
-Automatic collection of materials information from research papers using informatics principles is a growing trend that aims to support materials science research. The heterogeneity and the way information are encoded in literature together with the complexity of the problem poses several challenges to this project. 
-In this paper, we propose an ongoing interdisciplinary work to construct a framework to automatically extract superconductor related information from scientific literature using text mining techniques. Our approach aims at automatically extract superconducting materials and their properties such as critical temperature using machine learning system; however, in order to achieve this goal, high quality training data is very necessary. 
-We introduce the process of creating the needed training data together with our approach and foreseen architecture that allows the continuous delivery of quality data.
-
+Automatic collection of materials information from research papers using natural language processing is highly required for rapid materials development using big data, namely materials informatics (MI). Difficulty of this automatic collection is mainly caused by the variety of expressions in the papers, a device with tolerance to such variety is required to be developed. 
+In this paper, we report an ongoing interdisciplinary work to construct the device for automatic collection of superconductor-related information from scientific literature using text mining techniques. We focused on identification of superconducting materials and their key property of critical temperature (Tc), and discussed machine learning (ML) techniques, including annotation strategies to obtain appropriate training data. We introduce a guideline for the annotation together with our several trails of ML on subsequent automatic data collection.
 
 %Research in superconductors is always articulated over two main axes, finding new conditions or discovering new materials (or combination of it) show new or better superconductivity properties. 
 %In order to do so, material scientists needs to have rapid access to materials known to be superconductors and their properties without have to examine the thousand of papers related to it. Such data can also be used by further systems to compute generative models 
@@ -32,8 +28,12 @@ We introduce the process of creating the needed training data together with our 
 
 \pagebreak
 
+\tableofcontents
+
+\pagebreak
+
 \section{Introduction}
-% What is the problem we are trying to solve? 
+% What is the problem we are trying to solve? What are the motivation behind this project? 
 
 The goal of this project is to automatically extract domain specific information from scientific articles. Such information are divided into several component, usually names associated to a material together with their properties. This imply not only extraction but also to find a reliable way to cluster or link different properties to the material described. 
 
