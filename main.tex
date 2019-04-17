@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{authblk}
 \usepackage{tabularx}
+\usepackage{url}
 
 \title{Proposal of Automatic Extraction Framework of Superconductors related Information from Scientific literature}
 
@@ -11,7 +12,7 @@
 \author[1]{Masashi Ishii\thanks{ISHII.Masashi@nims.go.jp}}
 \affil[1]{Research and Services Division of Materials Data and Integrated System (MaDIS), National Institute for Materials Science (NIMS), 1-2-1 Sengen, Tsukuba, Ibaraki 305-0047, Japan}
 
-\date{February 2019}
+% \date{April 2019}
 
 \begin{document}
 
@@ -22,6 +23,7 @@ Automatic collection of materials information from research papers using natural
 In this paper, we report an ongoing interdisciplinary work to construct the device for automatic collection of superconductor-related information from scientific literature using text mining techniques. We focused on identification of superconducting materials and their key property of critical temperature (Tc), and discussed machine learning (ML) techniques, including annotation strategies to obtain appropriate training data. We introduce a guideline for the annotation together with our several trails of ML on subsequent automatic data collection.
 \end{abstract}
 
+%% The table of content is there just for organisation purposes, will be removed 
 \pagebreak
 
 \tableofcontents
@@ -37,12 +39,13 @@ In this paper, we report an ongoing interdisciplinary work to construct the devi
 
 Automatic extraction of information from research papers using Natural Language processing is a highly required approach in many domains. In material research, the availability of large quantity of experimental data can give hints and ideas leading to new break-trough materials discoveries. Large availability of scientific papers and the expertise costs for manually generated such data justify the needs of Text and Data Mining automatic approaches.
 
-In this paper we describe the ongoing attempt to design a system aiming to automatically extract superconductor information from scientific literature based on Machine Learning, using Natural Language Processing techniques. 
+In this paper we describe the ongoing attempt to design a system aiming to automatically extract superconductor information from scientific literature based on Machine Learning, using Natural Language Processing techniques.
 
 Writing style, variability in experiment and result description are just two of the variables making this task particularly complex. Reason why the best approach to successfully deliver a functioning system is to reduce the complexity to the smallest viable product.
-We focus on extracting materials names with doping rates, together with the registered critical temperature (Tc). We foreseen the use of probabilistic or neural models, our work begin designing the training data schema and define a set of guidelines. In parallel we prototype an experimental implementation to assess the feasibility of our approach. 
+We focus on extracting materials names with doping rates and critical temperature (Tc). We foreseen the use of probabilistic or neural models, our work begin designing the training data schema and define a set of guidelines \cite{article} 
+In order to assess the feasibility of our approach, while producing a working prototype in short time, we based our design on an existing open source product: Grobid \cite{GROBID} \cite{lopez2009grobid} a Machine Learning library for extracting information from scholarly documents. We implemented a module specialised in superconductors papers.
 
-% This is an interdisciplinary project in collaboration with materials engineers experts in superconductors research.
+As an interdisciplinary collaboration, this project we receive help and collaborate with the material scientists and engineers division. 
 
 %Summary of the next sections - to be discussed
 This article is divided as following. In Section \ref{sec:requirements} we describe the domain and the domain expert's requirements. In Section \ref{sec:overview} we will then describe the overall system design and the process of designing the schema for the ML training data. 
@@ -51,24 +54,18 @@ This article is divided as following. In Section \ref{sec:requirements} we descr
 \label{sec:requirements}
 %% How research is made and what are the point of improvements
 
-In this section we discuss the superconductor research requirements on two main aspects. First we describe how the research is done, which tasks are performed, and which information and resources are used. Second we discuss more in details the properties and information that domain experts consider important for their daily work. 
-
 % from wikipedia - begin 
-Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature. It was discovered by Dutch physicist Heike Kamerlingh Onnes on April 8, 1911, in Leiden. Like ferromagnetism and atomic spectral lines, superconductivity is a quantum mechanical phenomenon.
+\textit{Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature. It was discovered by Dutch physicist Heike Kamerlingh Onnes on April 8, 1911, in Leiden. Like ferromagnetism and atomic spectral lines, superconductivity is a quantum mechanical phenomenon.}\footnote{\url{https://en.wikipedia.org/wiki/Superconductivity}}
 % end
 
-The superconductor research aims to find new condition on known materials where no resistance is measured (thus it's said "they show superconductivity characteristic"), usually by tuning external conditions like pressure, magnetic fields, temperature or by changing internal structure of a material like having different compositions (called doping percentage) or combining different type of materials.
+The research in superconductor materials is articulated toward many different objectives. Discovery of new characteristic of well known materials, under new environment condition, like applied pressure or magnetic field. Combination of known superconductors with non-superconductors may lead to new materials with better characteristics, usually a higher critical temperature. A superconductor scientist accessing a large detailed database with extracted properties from materials could find new leads toward his research, like designing new experiments with different conditions. 
 
-The goal to obtain the highest temperature possible for which superconductivity characteristics are showing. Ideally room temperature. This is why papers call it "high temperature superconductivity". 
-
-Another aspect of superconductivity research is to discover if some new material (usually a composition) might show superconductivity characteristics. The combination are several: for example by combining small layers of different non-superconductor materials, or mixing superconductors and non superconductors material, or, testing additional composition by changing other characteristics, like pressure. 
-
-To facilitate such tasks, it's imperative to have a database (or knowledge base) where these information are decomposed and presented for each material. 
-NIMS database Supercon it's a manually curated database containing about 32k inorganic superconductors definitions, discovered in papers. 
-The goal of this project is to find a realiable way to generate such database automatically. 
+% Should we need to mention supercon? Maybe not 
+NIMS database SuperCon\cite{SuperCon} it's a manually curated database containing about 32k inorganic superconductors definitions, discovered in papers. 
+The goal of this project is to find a reliable way to generate such database automatically. 
 
 \subsection{Information of interest}
-In the next section we present which information the domain experts in superconductors are interested to be extracted. 
+As part of the usual step of assessing the feasibility, and collecting requirements from domain expert, we briefly describe information that domain expert ideally expects to be available in a automatically generated knowledge base for superconductors. 
 
 \begin{itemize}
     \item T\textsubscript{c} (Critical Temperature): The temperature recorded for which a specific material shows superconductivity characteristics (zero or lower resistance). Superconductivity is usually not happening sudden, T\textsubscript{c} is sometimes split into two phases T\textsubscript{onset} and T\textsubscript{offset}.
@@ -77,12 +74,12 @@ In the next section we present which information the domain experts in supercond
     \item H\textsubscript{c}: Critical current measured in combination with T\textsubscript{c}.
     \item I\textsubscript{c}: Critical current measured in combination with T\textsubscript{c}.
     \item J\textsubscript{c} (Critical current density): Critical current density measured in combination with T\textsubscript{c} and I\textsubscript{c}.
-    \item H\textsubscript{ivr} (Irreversibility field) % need to describe
-    \item Cristal structure space group % need to describe
+    \item H\textsubscript{ivr} (Irreversibly field) % need to describe
+    \item Crystal structure space group % need to describe
     \item Sample preparation:
     \begin{itemize}
         \item single crystal
-        \item poly cristal 
+        \item poly crystal 
         \item thin film
         \item wire
     \end{itemize}% need to describe
@@ -98,11 +95,12 @@ When researchers describe this characteristics, they don't follow a single appro
 In our solution problem we have an additional task, then, which is to extract such plots and provide a quick access. A domain expert could quickly evaluate whether the paper is interesting, just by looking at the plots. 
 
 \section{System design}
-% In this section we are discussing the process of annotation, in particular: 1. how did we find the right balance of annotation, 2.  results in term of IAA, 
 
 \subsection{Overview}
+\label{sec:overview}
 
 \subsection{Training data}
+% In this section we are discussing the process of annotation, in particular: 1. how did we find the right balance of annotation, 2.  results in term of IAA
 
 Machine Learning bring many advantages in term of accuracy and precision [add ref], tolerance with noise [add references] and flexibility in recognising entities that have never been seen before. 
 Unfortunately machine learning systems require training data, and depending of the task they can or cannot be available.
@@ -152,7 +150,7 @@ here the result...
 What has emerged were the following points: 
 
 \section{Future work}
-\section{Conclusion}
+\section{Conclusions}
 
 \listoffigures
 
