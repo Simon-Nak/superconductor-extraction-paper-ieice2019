@@ -6,10 +6,10 @@
 \title{Proposal of Automatic Extraction Framework of Superconductors related Information from Scientific literature}
 
 \author[1]{Luca Foppiano\thanks{FOPPIANO.Luca@nims.go.jp}}
-\author[1]{Thaer Moustafá Dieb\thanks{MOUSTAFADIEB.Thaer@nims.go.jp}}
+\author[1]{Thaer M. Dieb\thanks{MOUSTAFADIEB.Thaer@nims.go.jp}}
 \author[1]{Akira Suzuki\thanks{SUZUKI.Akira3@nims.go.jp}}
 \author[1]{Masashi Ishii\thanks{ISHII.Masashi@nims.go.jp}}
-\affil[1]{MaDIS, National Institute for Materials Science}
+\affil[1]{Research and Services Division of Materials Data and Integrated System (MaDIS), National Institute for Materials Science (NIMS), 1-2-1 Sengen, Tsukuba, Ibaraki 305-0047, Japan}
 
 \date{February 2019}
 
@@ -20,10 +20,6 @@
 \begin{abstract}
 Automatic collection of materials information from research papers using natural language processing is highly required for rapid materials development using big data, namely materials informatics (MI). Difficulty of this automatic collection is mainly caused by the variety of expressions in the papers, a device with tolerance to such variety is required to be developed. 
 In this paper, we report an ongoing interdisciplinary work to construct the device for automatic collection of superconductor-related information from scientific literature using text mining techniques. We focused on identification of superconducting materials and their key property of critical temperature (Tc), and discussed machine learning (ML) techniques, including annotation strategies to obtain appropriate training data. We introduce a guideline for the annotation together with our several trails of ML on subsequent automatic data collection.
-
-%Research in superconductors is always articulated over two main axes, finding new conditions or discovering new materials (or combination of it) show new or better superconductivity properties. 
-%In order to do so, material scientists needs to have rapid access to materials known to be superconductors and their properties without have to examine the thousand of papers related to it. Such data can also be used by further systems to compute generative models 
-
 \end{abstract}
 
 \pagebreak
@@ -32,16 +28,32 @@ In this paper, we report an ongoing interdisciplinary work to construct the devi
 
 \pagebreak
 
+%Research in superconductors is always articulated over two main axes, finding new conditions or discovering new materials (or combination of it) show new or better superconductivity properties. 
+%In order to do so, material scientists needs to have rapid access to materials known to be superconductors and their properties without have to examine the thousand of papers related to it. Such data can also be used by further systems to compute generative models 
+
+
 \section{Introduction}
 % What is the problem we are trying to solve? What are the motivation behind this project? 
 
-The goal of this project is to automatically extract domain specific information from scientific articles. Such information are divided into several component, usually names associated to a material together with their properties. This imply not only extraction but also to find a reliable way to cluster or link different properties to the material described. 
+% Text mining -> there is needs for it because 1) big data 2) automation 
 
-In this paper we propose our solution when working on sub-domain of the superconductor material research. 
-While each domain has different styles, policies and approaches we still believe a general technique can be partially or entirely reused across domains. In our preliminary assessment we have found several common "problems" between the superconductor and polymer domains, we believe that a more generic approach is still worth the effort. 
+Automatic extraction of information from research papers using natural language processing is a highly required approach in many domains. 
+In material research, the availability of large quantity of experimental data can provide hints and ideas leading to break-trough discoveries. 
+The needs of Text and Data Mining in material science is justified also by the large availability of scientific papers together with the required expertise making manually generate data extremely expensive. 
+
+% introduce the subdomain 
+In order to limit the scope of the problem to a specific sub-domain we focus on superconductor research. In this paper we describe the ongoing attempt to automatically extract superconductor information from scientific literature using Natural Language processing and Machine Learning techniques. 
+The variability in language, style and approach used in such sub-domain together with the complexity of how experiments are described requires additional constraints to make the problem tractable. 
+We then focus on extracting materials names with doping rates, together with the registered critical temperature (Tc). Since we foreseen the use of probabilistic or neural models, our work starts from designing the training data schema, define a set of guidelines and continue with the implementation articulated into extraction and further linking. 
+This is an interdisciplinary project in collaboration with Material scientists experts employed in practical superconductors research. 
+
+%Summary of the next sections - to be discussed
+The paper is divided as following. In Section \ref{sec:requirements} we describe the domain and the domain expert's requirements. In Section \ref{sec:overview} we will then describe the overall system design and the process of designing the schema for the ML training data. 
+
 
 
 \section{Requirements}
+\label{sec:requirements}
 %% How research is made and what are the point of improvements
 
 In this section we discuss the superconductor research requirements on two main aspects. First we describe how the research is done, which tasks are performed, and which information and resources are used. Second we discuss more in details the properties and information that domain experts consider important for their daily work. 
@@ -49,6 +61,7 @@ In this section we discuss the superconductor research requirements on two main 
 % from wikipedia - begin 
 Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature. It was discovered by Dutch physicist Heike Kamerlingh Onnes on April 8, 1911, in Leiden. Like ferromagnetism and atomic spectral lines, superconductivity is a quantum mechanical phenomenon.
 % end
+
 The superconductor research aims to find new condition on known materials where no resistance is measured (thus it's said "they show superconductivity characteristic"), usually by tuning external conditions like pressure, magnetic fields, temperature or by changing internal structure of a material like having different compositions (called doping percentage) or combining different type of materials.
 
 The goal to obtain the highest temperature possible for which superconductivity characteristics are showing. Ideally room temperature. This is why papers call it "high temperature superconductivity". 
