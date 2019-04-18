@@ -55,7 +55,7 @@ This article is divided as following. In Section \ref{sec:requirements} we descr
 %% How research is made and what are the point of improvements
 
 % from wikipedia - begin 
-\textit{Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature. It was discovered by Dutch physicist Heike Kamerlingh Onnes on April 8, 1911, in Leiden. Like ferromagnetism and atomic spectral lines, superconductivity is a quantum mechanical phenomenon.}\footnote{\url{https://en.wikipedia.org/wiki/Superconductivity}}
+\textit{Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature.}\footnote{\url{https://en.wikipedia.org/wiki/Superconductivity}}
 % end
 
 The research in superconductor materials is articulated toward many different objectives. Discovery of new characteristic of well known materials, under new environment condition, like applied pressure or magnetic field. Combination of known superconductors with non-superconductors may lead to new materials with better characteristics, usually a higher critical temperature. A superconductor scientist accessing a large detailed database with extracted properties from materials could find new leads toward his research, like designing new experiments with different conditions. 
@@ -67,65 +67,63 @@ The goal of this project is to find a reliable way to generate such database aut
 \subsection{Information of interest}
 As part of the usual step of assessing the feasibility, and collecting requirements from domain expert, we briefly describe information that domain expert ideally expects to be available in a automatically generated knowledge base for superconductors. 
 
-\begin{itemize}
-    \item T\textsubscript{c} (Critical Temperature): The temperature recorded for which a specific material shows superconductivity characteristics (zero or lower resistance). Superconductivity is usually not happening sudden, T\textsubscript{c} is sometimes split into two phases T\textsubscript{onset} and T\textsubscript{offset}.
-    \item T\textsubscript{onset} (Onset temperature): Temperature where the resistance is still \textgreater 0
-    \item T\textsubscript{offset} (Offset temperature): Temperature where the resistance is 0
-    \item H\textsubscript{c}: Critical current measured in combination with T\textsubscript{c}.
-    \item I\textsubscript{c}: Critical current measured in combination with T\textsubscript{c}.
-    \item J\textsubscript{c} (Critical current density): Critical current density measured in combination with T\textsubscript{c} and I\textsubscript{c}.
-    \item H\textsubscript{ivr} (Irreversibly field) % need to describe
-    \item Crystal structure space group % need to describe
-    \item Sample preparation:
-    \begin{itemize}
-        \item single crystal
-        \item poly crystal 
-        \item thin film
-        \item wire
-    \end{itemize}% need to describe
-    \item plots or charts
-    % here I cannot really write any meaningful sentence, so I what I had in my notes and we add sentences around it later :-) 
-    \begin{itemize}
-        \item T\textsubscript{c} vs x (with x any special characteristics described in the paper (\% doping, pressure, etc..) 
-        \item Magnetisation vs T\textsubscript{c}
-    \end{itemize}
-\end{itemize}
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{8cm}| } 
+    \hline
+        Name & Description  \\ [0.5ex] 
+    \hline\hline
+        T\textsubscript{c} & Critical Temperature\\ 
+    \hline
+        T\textsubscript{onset}, T\textsubscript{offset} & Temperature where the resistance tend to zero (offset) to when is really zero (onset)\\ 
+    \hline
+        H\textsubscript{c} & Critical field\\ 
+    \hline
+        I\textsubscript{c} & Critical current\\
+    \hline
+        H\textsubscript{c} & Critical field\\ 
+    \hline
+        J\textsubscript{c} & Critical current density\\ 
+    \hline
+        H\textsubscript{ivr} & Irreversibly field\\
+    \hline
+        Crystal structure space group & \\
+    \hline
+        Sample preparation shape & single crystal, poly crystal, thin film or wire. \\
+    \hline    
+    \end{tabular}
+\end{center}
 
-When researchers describe this characteristics, they don't follow a single approach while sometimes such characteristics are written down in text, they can be presented as plots. 
-In our solution problem we have an additional task, then, which is to extract such plots and provide a quick access. A domain expert could quickly evaluate whether the paper is interesting, just by looking at the plots. 
+The representation of such information is not straightforward because they can be described in plots, tables as well as plain text. Plots of importance are usually showing Tc against other experimental parameters (doping level, x, pressure, etc.) or magnetisation. 
 
 \section{System design}
+The design of the system is a continuous iterative process. In this section we describe the design actualised at the current state of the project, expecting some evolution and adaptation as the problem become more clear. 
+The problem can be divided into two phases: the extraction of relevant entities and the linking or clustering of such entities according certain criteria. 
+While the first phase is a common example of sequence Labelling, the linking needs to be more tight coupled with the type of data to link. 
 
-\subsection{Overview}
+There are basic principles we are following to ensure rapid prototyping and avoiding to reinvent the wheel. We try to focus on the specificity of the problem in superconductor rather than creating yet another sequence labelling system from scratch. For this reason we based approach on Grobid\cite{GROBID}: for the recognition of the property values, we have reused a Grobid-based model specialised in measurement extraction called \textit{grobid-quantitites}\cite{grobid-quantities}, shipping already good results in recognising measurements, like temperature, pressure and providing parsing and normalisation. For the other information we have created a new module specialised in superconductor data. Moreover Grobid provides an API and web interface allowing the visualisation of the annotation on-the-fly on top of the PDF documents. 
+
+\subsection{Engine}
 \label{sec:overview}
+The system is based on Machine Learning techniques, currently using CRF (Conditional Random Field) for practical reasons. We plan to test the system using Bi-LSTM combined with CRF once the amount of training data are enough to provide an reliable comparison. 
+For the linking phase, we have currently implemented an heuristic approach to 1) tag any mention to a temperature as critical temperature and 2) link any critical temperature to a material whose it is referring to. 
 
 \subsection{Training data}
-% In this section we are discussing the process of annotation, in particular: 1. how did we find the right balance of annotation, 2.  results in term of IAA
+% In this section we are discussing the process of annotation, in particular: 
+% 1. how did we find the right balance of annotation, 
+% 2.  results in term of IAA
 
 Machine Learning bring many advantages in term of accuracy and precision [add ref], tolerance with noise [add references] and flexibility in recognising entities that have never been seen before. 
-Unfortunately machine learning systems require training data, and depending of the task they can or cannot be available.
-
-When training data is not available, is a necessity to create it, however the process is simple and requires several cycles of iterative work.
-
-From the practical point of view:  
+Unfortunately ML-based systems require training data which is often not available in great quantity. 
+The process of annotation of new training data is very expensive: 
 \begin{enumerate}
-    \item it's very expensive in term of time and resources
-    \item the time span can be very long before the system starts performing
-    \item is a tedious and frustrating work for annotators (usually domain experts feeling overly-skilled, thus less motivated)
-    \item it's impossible to be fast and precise 
+    \item greedy in term of time and resources
+    \item the system might require a lot of data before showing performance accuracy improvements
+    \item is a tedious and frustrating for annotators (usually domain experts,  feeling overly-skilled, thus less motivated)
+    \item throughput and precision are inversely proportional
 \end{enumerate}
-    
-The first important step is always to understand the problem and try to find the simplest approach; find the right balance of accuracy and efficiency. 
 
-% This section should describe how we are doing and which problems we are facing
-\section{Results}
+Training data are written as a collaborative work between domain experts and engineers. Before involving the domain experts, however a reasonable approach is to agree a common understanding "internally" among engineers and data scientists that are actively designing the machine learning system. 
 
-\subsection{Annotation principles}
-
-Annotation guidelines is the set of rules and agreement that are defined for the annotation task. It's a living documentation describing how each entity should be annotated, including special cases. 
-Like the training data itself, the process of writing guidelines requires an iterative approach with further improvement for each annotation cycle. 
-
-Annotation guidelines are written as a collaborative work between domain experts and engineers. Before involving the domain experts, however a reasonable approach is to agree a common understanding "internally" among engineers and data scientists that are actively designing the machine learning system. 
 This approach bring two advantages: 
 \begin{itemize}
     \item assessment and knowledge of the domain, 
@@ -136,8 +134,12 @@ This approach bring two advantages:
 
 The outcome is then discussed and validated with domain experts. 
 
-\subsection{Annotating superconductors}
-In this section we describe in detail the first and second iteration and further discussions emerged from our work.
+% This section should describe how we are doing and which problems we are facing
+\section{Ongoing Results}
+\subsection{Prototype status}
+
+\subsection{Annotation status}
+% In this section we describe in detail the various iterations - with a table? 
 
 % first iteration
 As a first step we, engineers and data scientists, have annotated two sample documents, without any special constraints, to the best to our knowledge and then we have compared the results. 
@@ -149,8 +151,13 @@ here the result...
 
 What has emerged were the following points: 
 
-\section{Future work}
 \section{Conclusions}
+% ML 
+In the sequence labelling phase we verified that CRF can perform pretty well even without any particular information. The features provided by Chemspot contributed only for 1\% in term of F-1score. On the other hand, Chemspot increased the response time of a PDF document by 10 times, making the system not particularly suitable for processing of large collection of data. 
+
+% Linking
+The Heuristic linking has shown many lack and very low tolerance to noise, we foreseen to improve it by 1) improve the current appraoch adding more rules 2)  implement a simple CRF model that allows the linking of relatively closed entities, and 3) study the possibility to exploit a sentence dependency parsing, bearing in mind the impact in performances should also be considered.
+
 
 \listoffigures
 
