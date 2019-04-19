@@ -39,33 +39,27 @@ In this paper, we report an ongoing interdisciplinary work to construct the devi
 
 Automatic extraction of information from research papers using Natural Language processing is a highly required approach in many domains. In material research, the availability of large quantity of experimental data can give hints and ideas leading to new break-trough materials discoveries. Large availability of scientific papers and the expertise costs for manually generated such data justify the needs of Text and Data Mining automatic approaches.
 
+Writing style, variability in experiment and result description are just two of the variables making this task particularly complex. Reason why the best approach to successfully deliver a functioning system is to reduce the complexity to the smallest viable product.
+We focus on extracting materials names with doping rates and critical temperature (Tc) values.
+
+%% How research is made and what are the point of improvements?
+
+\textit{Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature.}\footnote{\url{https://en.wikipedia.org/wiki/Superconductivity}}
+
+The research in superconductor materials is articulated toward many different objectives. Discovery of new characteristic of well known materials, under new environment condition, like applied pressure or magnetic field. Combination of known superconductors with non-superconductors may lead to new materials with better characteristics, usually a higher critical temperature. 
+NIMS hosts a manually extracted superconductor database:  SuperCon\cite{SuperCon} it contains about 32k inorganic and about 558 organic superconductor material definitions. 
+
+% Why do we need such information? Why these information are important?
+The availability of material information with detailed and precise granularity is a must-have for superconductors scientists. This data summarises decades of research and discoveries and can be potentially exploited in many areas. Further machine learning or neural models can train generative models specialised in automatically predict critical temperature \cite{DBLP:journals/corr/abs-1812-01995} on new (pure or combination) of materials. Large scale repositories with enhanced semantic search specialised in superconductor disambiguation or document similarity and clustering. 
+
 In this paper we describe the ongoing attempt to design a system aiming to automatically extract superconductor information from scientific literature based on Machine Learning, using Natural Language Processing techniques.
 
-Writing style, variability in experiment and result description are just two of the variables making this task particularly complex. Reason why the best approach to successfully deliver a functioning system is to reduce the complexity to the smallest viable product.
-We focus on extracting materials names with doping rates and critical temperature (Tc). We foreseen the use of probabilistic or neural models, our work begin designing the training data schema and define a set of guidelines \cite{article} 
-In order to assess the feasibility of our approach, while producing a working prototype in short time, we based our design on an existing open source product: Grobid \cite{GROBID} \cite{lopez2009grobid} a Machine Learning library for extracting information from scholarly documents. We implemented a module specialised in superconductors papers.
+We foreseen the use of probabilistic or neural models, our work begin designing the dataset schema and produce a set of guidelines. While doing annotation attempts, we test several Open Source tools for manual annotation.
+In order to assess the feasibility of our approach, while producing a working prototype in short time, we implement a module specialised in superconductors based on an Open Source library for text mining from scholarly documents: Grobid \cite{GROBID} \cite{lopez2009grobid}.
+In Section \ref{sec:overview} we provide results on the prototype accuracy, precision and f-score and on the process of creation of training data, including the evolution of our inter annotation agreement evolution during our test and our opinion about the available Open Source interfaces for annotation. 
 
-As an interdisciplinary collaboration, this project we receive help and collaborate with the material scientists and engineers division. 
-
-%Summary of the next sections - to be discussed
-This article is divided as following. In Section \ref{sec:requirements} we describe the domain and the domain expert's requirements. In Section \ref{sec:overview} we will then describe the overall system design and the process of designing the schema for the ML training data. 
-
-\section{The Superconductor research domain}
-\label{sec:requirements}
-%% How research is made and what are the point of improvements
-
-% from wikipedia - begin 
-\textit{Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature.}\footnote{\url{https://en.wikipedia.org/wiki/Superconductivity}}
-% end
-
-The research in superconductor materials is articulated toward many different objectives. Discovery of new characteristic of well known materials, under new environment condition, like applied pressure or magnetic field. Combination of known superconductors with non-superconductors may lead to new materials with better characteristics, usually a higher critical temperature. A superconductor scientist accessing a large detailed database with extracted properties from materials could find new leads toward his research, like designing new experiments with different conditions. 
-
-% Should we need to mention supercon? Maybe not 
-NIMS database SuperCon\cite{SuperCon} it's a manually curated database containing about 32k inorganic superconductors definitions, discovered in papers. 
-The goal of this project is to find a reliable way to generate such database automatically. 
-
-\subsection{Information of interest}
-As part of the usual step of assessing the feasibility, and collecting requirements from domain expert, we briefly describe information that domain expert ideally expects to be available in a automatically generated knowledge base for superconductors. 
+\subsection{Dataset design}
+In this section we provide a summarised description of the dataset, information that domain expert consider important for their research, ordered by priority. 
 
 \begin{center}
     \begin{tabular}{ | m{5em} | m{8cm}| } 
@@ -86,7 +80,7 @@ As part of the usual step of assessing the feasibility, and collecting requireme
     \hline
         H\textsubscript{ivr} & Irreversibly field\\
     \hline
-        Crystal structure space group & \\
+        Crystal structure space group & (TBD) \\
     \hline
         Sample preparation shape & single crystal, poly crystal, thin film or wire. \\
     \hline    
@@ -96,67 +90,98 @@ As part of the usual step of assessing the feasibility, and collecting requireme
 The representation of such information is not straightforward because they can be described in plots, tables as well as plain text. Plots of importance are usually showing Tc against other experimental parameters (doping level, x, pressure, etc.) or magnetisation. 
 
 \section{System design}
-The design of the system is a continuous iterative process. In this section we describe the design actualised at the current state of the project, expecting some evolution and adaptation as the problem become more clear. 
-The problem can be divided into two phases: the extraction of relevant entities and the linking or clustering of such entities according certain criteria. 
-While the first phase is a common example of sequence Labelling, the linking needs to be more tight coupled with the type of data to link. 
+The design of the system is a continuous iterative process where ideas are drafted, improved and finalised. In order to begin from a contained and well defined problem we decided to focus on extracting materials, critical temperature and link them together. 
 
-There are basic principles we are following to ensure rapid prototyping and avoiding to reinvent the wheel. We try to focus on the specificity of the problem in superconductor rather than creating yet another sequence labelling system from scratch. For this reason we based approach on Grobid\cite{GROBID}: for the recognition of the property values, we have reused a Grobid-based model specialised in measurement extraction called \textit{grobid-quantitites}\cite{grobid-quantities}, shipping already good results in recognising measurements, like temperature, pressure and providing parsing and normalisation. For the other information we have created a new module specialised in superconductor data. Moreover Grobid provides an API and web interface allowing the visualisation of the annotation on-the-fly on top of the PDF documents. 
+This project is divided into two parts, the system itself, currently a prototype that helped us to get some interesting insight and to produce a baseline result. Secondly, the process for creating a corpus of training data, given previous experience \cite{nadev} but considering the domain was unknown to us we had defined a generic process having as outcome a set of guidelines for superconductor annotations.  
+
+% While the first phase is a common example of sequence labelling, the linking needs to be more tight coupled with the type of data to link. 
+% we based approach on : for the recognition of the property values, we have reused a Grobid-based model specialised in measurement extraction called \textit{grobid-quantitites}\cite{grobid-quantities}, shipping already good results in recognising measurements, like temperature, pressure and providing parsing and normalisation. 
 
 \subsection{Engine}
 \label{sec:overview}
-The system is based on Machine Learning techniques, currently using CRF (Conditional Random Field) for practical reasons. We plan to test the system using Bi-LSTM combined with CRF once the amount of training data are enough to provide an reliable comparison. 
-For the linking phase, we have currently implemented an heuristic approach to 1) tag any mention to a temperature as critical temperature and 2) link any critical temperature to a material whose it is referring to. 
+The problem we are trying to solve can be split in two steps: a) extraction of relevant entities and b) linking entities with the referenced material. 
+For the first stop, we have used an Open Sources library called Grobid\cite{GROBID} for sequence labelling and document segmentation, this allowed us to focus on the specific problem ignoring the engineering implementation of the interfaces.
+
+The system is based on Machine Learning (CRF) for practical reasons. We plan to test the system using Bi-LSTM+CRF once the corpus reach critical mass to provide a reliable comparison. 
+
+The linking step has been implemented using an heuristic approach to 1) tag any mention to a temperature as critical temperature and 2) link any critical temperature to the corresponding material. 
+
+At the current state of the project, we have kicked off a basic prototype with an end to end workflow for processing data from text and PDF and recorded a set of results as baseline of data extracted from our PDFs collections (Section \ref{secsec:baseline-results}). 
+
+The prototype contains a minimal model for superconductor material recognition, trained with 5 full documents (42 annotations in total) manually annotated (without any guideline) by one person. We used the classical Grobid features with in addition annotations from  ChemSpot\cite{10.1093/bioinformatics/bts183} that were indicating whether a token was a FORMULA, SISTEMATIC, COMPOUND element. In order to maintain the separation between the two systems we have also created a REST API wrapper around ChemSpot enabling it to be called via HTTP\cite{chemspot-web}.  
+
+The result for the superconductor model were encouraging, with already a 68.18\% recall per instance, meaning that almost 70\% mentions in text of one or more tokens were tagged corrected. 
+
+We also testes the full process on 500 papers from three publishers: AIP, APS and IOP and we had the following results: we extracted 5400 materials. 
+Out of these, 76 were linked to a critical temperature. 50 of these material were evaluated manually as corrected, in the sense that the Critical temperature was correctly linked to the right value. 
 
 \subsection{Training data}
+\label{sec:training-data}
 % In this section we are discussing the process of annotation, in particular: 
-% 1. how did we find the right balance of annotation, 
-% 2.  results in term of IAA
+%   1. how did we find the right balance of annotation, 
+%   2. results in term of IAA
 
-Machine Learning bring many advantages in term of accuracy and precision [add ref], tolerance with noise [add references] and flexibility in recognising entities that have never been seen before. 
-Unfortunately ML-based systems require training data which is often not available in great quantity. 
-The process of annotation of new training data is very expensive: 
-\begin{enumerate}
-    \item greedy in term of time and resources
-    \item the system might require a lot of data before showing performance accuracy improvements
-    \item is a tedious and frustrating for annotators (usually domain experts,  feeling overly-skilled, thus less motivated)
-    \item throughput and precision are inversely proportional
-\end{enumerate}
+Machine Learning bring many advantages in term of accuracy and precision [add ref], tolerance to noise [add references] and flexibility in recognising entities that have never been seen before. However, they require a certain amount of example of data for training, test and validation. 
 
-Training data are written as a collaborative work between domain experts and engineers. Before involving the domain experts, however a reasonable approach is to agree a common understanding "internally" among engineers and data scientists that are actively designing the machine learning system. 
+% The process of annotation of new training data is very expensive: 
+% \begin{enumerate}
+%     \item greedy in term of time and resources
+%     \item the system might require a lot of data before showing performance accuracy improvements
+%     \item is a tedious and frustrating for annotators (usually domain experts,  feeling overly-skilled, thus less motivated)
+%     \item throughput and precision are inversely proportional
+% \end{enumerate}
 
-This approach bring two advantages: 
-\begin{itemize}
-    \item assessment and knowledge of the domain, 
-    \item it is likely to hit more problems than what imagined by actively performing the task 
-    \item early issues help to think more proactively about possible shortcut, solution or additional constraints, and 
-    \item we would be better prepared to justify eventual decision to the domain experts
-\end{itemize}
-
-The outcome is then discussed and validated with domain experts. 
+The process of annotation is always a collaborative work between ML engineers and domain experts, which are involved in a second phase, after a common understanding is "internally" agreed among engineers and data scientists that are actively designing the machine learning system. 
+In this way we a) asses our knowledge of the domain, b) are likely to spot problems related to the data by working with it, c) develop a proactive thinking of possible shortcut or additional constraints and, last but not least, we are ready to justify our constraints and decision to domain experts. 
 
 % This section should describe how we are doing and which problems we are facing
-\section{Ongoing Results}
-\subsection{Prototype status}
+We have selected two Open Access papers deposited on Arxiv and distributed among us (3 people). We have then pre annotated using the current prototype and corrected using 4 labels: <supercon>, <tc>, <propertyValue> and <substitution> to identify respectively superconductor materials, critical temperature expression, values and variables substitution combination. 
 
-\subsection{Annotation status}
-% In this section we describe in detail the various iterations - with a table? 
+After deciding the labels, we have proceed with 3 iterative cycles of annotations, reviewed thoughtfully and updating the guidelines. 
+We report the IAA (Inter Annotation Agreements) in these iterations. 
 
-% first iteration
-As a first step we, engineers and data scientists, have annotated two sample documents, without any special constraints, to the best to our knowledge and then we have compared the results. 
-
-the goal was to get a first understanding of the papers and exchange our unique view about the task to be solved. 
-
-here the result...
-
-
-What has emerged were the following points: 
+\begin{center}
+    \begin{tabular}{ | c | c| c| } 
+    \hline
+        Iteration \# & IAA & IAA by label  \\ [0.5ex] 
+    \hline\hline
+        1  & 0.45
+        &\begin{tabular}{  c | c  } 
+            supercon & 0.45\\ 
+            tc & 0.56\\
+            propertyValue & 0.50\\
+            substitution & 0.21\\
+        \end{tabular}    
+        \\ 
+    \hline
+        2 & 0.65
+        &\begin{tabular}{  c |  c  } 
+            supercon & 0.75\\ 
+            tc & 0.85\\
+            propertyValue & 0.85\\
+            substitution & 0.39 \\
+        \end{tabular}          
+        \\ 
+    \hline
+        3 & 0.89
+        & \begin{tabular}{  c | c  } 
+            supercon & 0.89\\ 
+            tc & 0.91\\
+            propertyValue & 0.88\\
+            substitution & 0.94\\
+        \end{tabular}       
+        
+        \\ 
+    \hline
+    \end{tabular}
+\end{center}
 
 \section{Conclusions}
 % ML 
 In the sequence labelling phase we verified that CRF can perform pretty well even without any particular information. The features provided by Chemspot contributed only for 1\% in term of F-1score. On the other hand, Chemspot increased the response time of a PDF document by 10 times, making the system not particularly suitable for processing of large collection of data. 
 
 % Linking
-The Heuristic linking has shown many lack and very low tolerance to noise, we foreseen to improve it by 1) improve the current appraoch adding more rules 2)  implement a simple CRF model that allows the linking of relatively closed entities, and 3) study the possibility to exploit a sentence dependency parsing, bearing in mind the impact in performances should also be considered.
+The Heuristic linking has shown many lack and very low tolerance to noise, we foreseen to improve it by 1) improve the current approach adding more rules 2)  implement a simple CRF model that allows the linking of relatively closed entities, and 3) study the possibility to exploit a sentence dependency parsing, bearing in mind the impact in performances should also be considered.
 
 
 \listoffigures
