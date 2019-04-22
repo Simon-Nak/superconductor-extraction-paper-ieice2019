@@ -78,7 +78,7 @@ In the extraction step, we build our implementation based on an Open Sources lib
 
 The PDF support in GROBID was an important feature because allowed us to work with a "standardised" format instead of dealing with several flavour of XML formats, as well as having data with noise 
 
-Once relevant entitites are extracted we process them in a second step using a Rule Based approach to classify any mention of temperature as critical temperature or not, and to link any critical temperature to the corresponding material. 
+Once relevant entities are extracted we process them in a second step using a Rule Based approach to classify any mention of temperature as critical temperature or not, and to link any critical temperature to the corresponding material. 
 
 Our prototype contains a minimal model for superconductor material recognition, trained with 5 full documents (42 annotations in total) manually annotated by one person. We used only basic features with PDF font information and ChemSpot \cite{10.1093/bioinformatics/bts183} annotations indicating whether a token was a chemical FORMULA, SYSTEMATIC, COMPOUND. 
 
@@ -88,13 +88,14 @@ The extraction of temperature was reused from another already implemented GROBID
 \section{Experiments and results}
 \label{sec:experiments-results}
 
-Preliminary evaluation for the superconductor model using 42 entities in 5 papers resulted in about 68.18\% recall per \textit{instance}. 
-In GROBID evaluation framework there are three main result types: tokens-level, field-level and instance level results. [TODO: adding more information]
+Preliminary evaluation for the superconductor model using a corpus of 42 entities among 5 papers, with a single tag \textless supercon\textgreater. We used 4 of these papers for training and 1 for evaluation. 
 
-One \textit{instance} is composed by several tokens, in this case the whole labelling must be correct for the instance to be considered correct., meaning that almost 70\% mentions in text of one or more tokens were tagged correct. 
+In GROBID evaluation framework evaluation measures (accuracy, precision and recall) are calculated at three different levels: tokens-level, field-level and instance-level. 
+Evaluation at token-level is computed considering each token independently, field-level consider each continuous sequence of the same label (so a field, a sequence of several tokens which all belongs to the same labelled chunk, e.g. a title), finally instance-level is the score for the whole input, for instance a paragraph.
+
+The output from GROBID is shown in the following listing: 
 
 \begin{verbnobox}[\small]
-
 ===== Token-level results =====
 
 label                accuracy     precision    recall       f1     
@@ -120,6 +121,9 @@ Correct instances:          15
 Instance-level recall:      68.18
 \end{verbnobox}
 
+Field-level shows a f1-score of about 60\%. One of the reason why there is a difference of more than 20\% in f1-score between token-level and field-level can be attributed to the lack of training data, leading to mistakes in the edges of the fields.
+We also noticed that 70\% of the paragraphs were correct, this result could look strange however we believe that is due to the lack of variability of examples creating a separation between examples correctly recognised (100\% in field and instances) and example incorrectly recognised (getting many wrong fields) (to be rewritten!)
+
 % On a more larger scale, we experiment the extraction from a corpus of 500 PDF superconductors papers from three publishers: AIP, APS and IOP. The system extracted 5400 materials, however only 76 were linked to a critical temperature. We manually verified all of them and found out that 50 were correctly linked. 
 On a more larger scale, we experiment the extraction from a corpus of 500 PDF superconductors papers from three publishers: AIP, APS and IOP as summarised in Table \ref{table:result-extraction} where the linked materials were evaluated manually. 
 
@@ -135,6 +139,8 @@ On a more larger scale, we experiment the extraction from a corpus of 500 PDF su
     \label{table:result-extraction}
     \caption{Result of extraction on a corpus of 500 papers.}    
 \end{table}
+
+[TODO add examples of mistakes for the linking]
 
 \section{Conclusion}
 In this paper, we introduced a proposal for automatic extraction of superconductor related information from related publications using Sequence labelling. We report recall is that CRF can perform pretty well even without any special orthogonal information. We assessed that using a chemical entity recogniser contributed only for 1\% in term of f-score. On the other hand, ChemSpot increased the response time of a PDF document by approximately 10 times, making the system not particularly suitable for processing large collection of data. 
