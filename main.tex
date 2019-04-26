@@ -46,7 +46,7 @@ Despite the general understanding of necessity of TDM, variation in experiment a
 
 %% How research is made and what are the point of improvements?
 \textit{Superconductivity is a phenomenon of exactly zero electrical resistance and expulsion of magnetic flux fields occurring in certain materials, called superconductors, when cooled below a characteristic critical temperature.}\footnote{\url{https://en.wikipedia.org/wiki/Superconductivity}}
-Historically, high-temperature superconductors have been suddenly discovered by intuition of scientists rather than systematic consideration because of the lack of theoretical understanding \cite{klintenberg2013possible} \cite{DBLP:journals/corr/abs-1812-01995}. In this severe situation,  data-driven exploration \cite{doi:10.1080/14686996.2018.1548885}, \cite{HAMIDIEH2018346} \cite{PhysRevMaterials.2.024802} \cite{doi:10.1021/cm503507h} would be a feasible approach to accelerate development of new superconducting materials. Since it requires huge data sets for precise prediction, high-throughput experiments, first-principle calculations, existing material databases should be used as data source. Currently, several material databases are available for property search, however when looking at the superconductor sub-domain, the main one is SuperCon\cite{SuperCon} hosted and maintained by the National Institute for Materials Science (NIMS). Actually, the SuperCon contains about 32k inorganic and about 558 organic superconductor material definitions. Although it is still being updated manually, it cannot catch up with the massive fresh information from the increasing number of articles each year. It is our challenge to make SuperCon richer for data-driven science using TDM.
+Historically, high-temperature superconductors have been suddenly discovered by intuition of scientists rather than systematic consideration because of the lack of theoretical understanding \cite{klintenberg2013possible} \cite{DBLP:journals/corr/abs-1812-01995}. In this severe situation, data-driven exploration \cite{doi:10.1080/14686996.2018.1548885}, \cite{HAMIDIEH2018346} \cite{PhysRevMaterials.2.024802} \cite{doi:10.1021/cm503507h} would be a feasible approach to accelerate development of new superconducting materials. Since it requires huge data sets for precise prediction, high-throughput experiments, first-principle calculations, existing material databases should be used as data source. Currently, several material databases are available for property search, however when looking at the superconductor sub-domain, the main one is SuperCon\cite{SuperCon} hosted and maintained by the National Institute for Materials Science (NIMS). Actually, the SuperCon contains about 32k inorganic and about 558 organic superconductor material definitions. Although it is still being updated manually, it cannot catch up with the massive fresh information from the increasing number of articles each year. It is our challenge to make SuperCon richer for data-driven science using TDM.
 
 %The research in superconductor materials is articulated toward many different objectives. Discovery of new characteristic of well known materials, under new environment condition, like applied pressure or magnetic field. Combination of known superconductors with non-superconductors may lead to new materials with better characteristics, usually a higher critical temperature. 
 
@@ -60,12 +60,11 @@ In this paper we describe the ongoing attempt to design a TDM system using NLP t
 Our system is built on an Open Source library for text mining from scholarly documents: Grobid \cite{GROBID}. We evaluate the performance of the system using precision, recall and f-score. Such preliminary results provides baseline for measuring our progress in solving the task.
 Similar attempts of mining scientific literature in materials domain had been conducted \cite{nanocrystal_extraction} \cite{court2018auto}. 
 
-% What we discuss in this paper? 
 This paper is organised as follows, Section \ref{sec:architecture} describes the development of a working prototype specialised in superconductors data extraction including the development of an annotated corpus for material names recognition. Section \ref{sec:experiments-results} presents the evaluation methods and results, section \ref{sec:conclusion} concludes the paper.
 
 \section{System architecture}
 \label{sec:architecture}
-The scientific information is often presented in tables and figures for quick understanding. However, in order to achieve higher order data structuring, it is necessary to link extracted entities. For example, the superconductor’s name with various expressions should be appropriately linked to corresponding property values depend on various parameters, such as dopant density, stoichiometry, and applied magnetic field. Obviously, these entities are not fully included in the tables and figures. Therefore, we insist on extracting information existing in the main body text and in captions of tables and figures. In superconductor sub-domain, since linking critical temperature (Tc) with its corresponding superconducting material is crucial, we constructed a system for the material and Tc (material-Tc) linking. Other properties will be targeted in the upcoming work.
+The scientific information is often presented in tables and figures for quick understanding. However, in order to achieve higher order data structuring, it is necessary to link extracted entities. For example, the superconductor’s name with various expressions should be appropriately linked to corresponding property values depending on various parameters, such as dopant density, stoichiometry, and applied magnetic field. Obviously, these entities are not fully included in the tables and figures. Therefore, we insist on extracting information existing in the main body text and in captions of tables and figures. In superconductor sub-domain, since linking critical temperature (Tc) with its corresponding superconducting material is crucial, we constructed a system for linking the material and Tc (material-Tc). Other properties will be targeted in the upcoming work.
 
 We built our implementation based on an open source library called Grobid \cite{GROBID}. Grobid is a sequence labelling and document segmentation originally based on a Machine Learning algorithm Conditional Random Field (CRF) \cite{lafferty2001conditional}. It provides full support for extraction of data from PDF and a build-in workflow for pre-annotating training data, evaluation and training. 
 The PDF support in Grobid was important because allowed us to work with a “standardised” medium instead of dealing with several flavour of XML formats. Among various available open source tools, the choice of Grobid is well justified by the fact that it's still actively developed and it's a production ready product deployed in the back-end of Mendeley \cite{mendeley-extraction} and other research repositories. Grobid performed best in a recent benchmark testing for citation extraction \cite{DBLP:journals/corr/abs-1802-01168}. Lastly, Grobid has been successfully extended to support several domains specific problems, for example astronomical entities recognition \cite{grobid-astro}, dictionaries segmentation \cite{khemakhem2017automatic}, software mention \cite{software-mentions} and measurements extraction and normalisation \cite{grobid-quantities}. The availability of an open source measurement recognition like Grobid-quantities was fitting perfectly for our use case to recognise Tc. 
@@ -77,14 +76,15 @@ The PDF support in Grobid was important because allowed us to work with a “sta
     \label{fig:system-schema}
 \end{figure}
 
-Our developed system illustrated in Figure \ref{fig:system-schema} consists mainly of two phases: “Extraction phase” and “Linking phase”. In the first phase, we extract relevant entities, i.e., superconducting materials and Tc, and in the second phase, we link these entities.
+Our developed system illustrated in Figure \ref{fig:system-schema} consists mainly of two phases: “Extraction phase” and “Linking phase”. In the first phase we extract relevant entities, i.e., superconducting materials and Tc, and in the second phase, we link these entities.
 
 After parsing title, abstract, sections, and captions and following tokenisation, the Extraction phase combines the entities resulting from a newly trained model for superconductor material recognition and a conventional module, Grobid-quantities for measurement extraction. The superconductor material recognition model was trained with five full documents (forty two mentions in total) manually annotated. We added domain-specific features using a chemical recogniser, called ChemSpot \cite{10.1093/bioinformatics/bts183}. ChemSpot classifies the extracted entities into several classes: SYSTEMATIC, IDENTIFIER, FORMULA, TRIVIAL, ABBREVIATION, FAMILY, MULTIPLE and UNKNOWN.
 
 In the following Linking phase, three tasks are performed: (1) since Grobid-quantities provides a larger set of measurements (temperatures, lengths, pressures, etc.) we selected only temperatures, then (2) we classified each of them into "Tc" and the others. Finally (3) we linked each material term with the closest Tc. 
-The selection of Tc (2) was realised by word matching to an original dictionary, which summarises commonly used Tc-related words in superconducting literature (e.g. “Tc”, “critical temperature”). We looked for them in the surrounding of a numerical temperature assuming Tc related keywords will appear within five words. 
-Finally the closest material term was linked to the pair of Tc and value, resulting in the entity linking of material-Tc-value. The linking interval was set to sentence or paragraph, we report results in the next section.
-This simple algorithm allowed us to quickly develop a prototype implementing the end to end process and showing annotations directly in PDF or storing them in a database. In Figure \ref{fig:example-working} we show two examples of a correct linking, while in Figure \ref{fig:example-not-working} two example of incorrect linking or missing extraction. 
+The selection of Tc (2) was realised by word matching to an original dictionary, which summarises commonly used Tc-related words in superconducting literature (e.g. “Tc”, “critical temperature”). Given a numerical temperature, we performed the matching in the surrounding assuming Tc related keywords were likely to be located within five tokens. 
+
+Finally the entity linking of material-Tc-value was obtained by matching each material with the closest Tc within the same span, set to sentence or paragraph (Table \ref{table:result-linking}).
+This simple algorithm allowed us to quickly develop a prototype implementing an end to end process, extracting entities and displayed them directly on PDF, storing them in a database. In Figure \ref{fig:example-working} we show two examples of a correct linking, while in Figure \ref{fig:example-not-working} two example of incorrect linking or missing extraction. 
 
 \begin{figure}[h]
     \centering
@@ -107,7 +107,7 @@ This simple algorithm allowed us to quickly develop a prototype implementing the
 
 %In this section we evaluate the superconductor model trained with a small corpus and applied it to a larger corpus. 
 
-The superconductor model was evaluated using a corpus of five papers (four for training and one for testing) having a total of forty-two entities classified with a single label called  \textless supercon\textgreater.
+The superconductor model was trained using a corpus of five papers (four for training and one for testing) having a total of forty-two entities classified with a single label called  \textless supercon\textgreater.
 
 \begin{figure}[h!]
     \centering
@@ -116,8 +116,8 @@ The superconductor model was evaluated using a corpus of five papers (four for t
     \label{fig:levels-measurement}
 \end{figure}
 
-Grobid evaluation framework uses (accuracy, precision and recall) as evaluation measures. These measures are calculated at three different levels: tokens-level, field-level and instance-level. Figure \ref{fig:levels-measurement} illustrates the concept. 
-Evaluation at token-level is computed considering each token independently (in the example we score 4/5), field-level consider each continuous sequence of the same label (a field, a sequence) belonging to the same labelled chunk (in the example  "FeTe\textsubscript{1}A\textsubscript{x}Se\textsubscript{x}" we score 0/1, because of a wrongly recognised token "Se"). Evaluation at instance-level is the score where all the entities within the same instance (a paragraph) must to be correct to consider the instance correctly recognised. 
+Grobid evaluation framework relay on standard measures (accuracy, precision and recall) for evaluation calculated at three different levels: tokens-level, field-level and instance-level. Figure \ref{fig:levels-measurement} illustrates the concept. 
+Evaluation at token-level is computed by considering each token independently (in the example we score 4/5), field-level assumes each continuous sequence of the same label (a field, a sequence) belonging to the same labelled chunk (in the example  "FeTe\textsubscript{1}A\textsubscript{x}Se\textsubscript{x}" we score 0/1, because of a wrongly recognised token "Se"). Evaluation at instance-level is the score where all the entities within the same instance (in Grobid specific case, a paragraph) must be correct to consider the instance correctly recognised. 
 
 Below is a snapshot of Grobid framework evaluation results: 
 
@@ -147,11 +147,14 @@ Correct instances:          15
 Instance-level recall:      68.18
 \end{verbnobox}
 
-While token-level f-score was 84.85\%, the field-level f-score was 61.02\%. On the other hand, the recall at instance-level is 68.18\% indicating that the current training data have many paragraphs with no annotations. We conclude that such differences can be attributed to the lack of sufficient training data. 
+While f-score was 84.85\% at token-level and 61.02\% at field-level. 
+The recall at instance-level was 68.18\% indicating that the current training data have many paragraphs with no annotations. We conclude that such differences can be attributed to the lack of sufficient training data. 
 
-Additionally, we tested the proposed system on a larger corpus of papers. We processed 500 PDF related to superconductors and evaluating the extracted critical temperatures and their link with the related material. 
+Additionally, we tested the proposed system on a larger corpus of papers. We processed 500 PDF from three publishers: American institute of Physics (AIP), American Physical Society (APS) and Institute of Physics (IOP) related to superconductors and manually evaluated the extracted critical temperatures and their link with the related material. 
 
-In the Extraction phase (Table \ref{table:result-extraction}), in particular for material recognition we recorded mistakes at the boundaries of the annotation, for example LaFe\textsubscript{x}O\textsubscript{1-x} was extracted only as LaFexO missing the notation \textsubscript{2}. Other time two materials separated by "and" or a comma were extracted as a single entity. We are confident these mistakes will be reduced with more training data. Varieties of chemical compositions increase the number of the material entities. Temperatures could refer to experimental conditions or heat processes of specimen fabrication.
+In the Extraction phase (Table \ref{table:result-extraction}), in particular for material recognition we recorded mistakes at the boundaries of the annotation, for example LaFe\textsubscript{x}O\textsubscript{1-x} was extracted only as LaFexO missing the notation \textsubscript{2}. Other time two materials separated by "and" or a comma were extracted as a single entity. Varieties of chemical compositions increase the number of the material entities.
+We are confident these mistakes will be reduced with more training data.  
+% Temperatures could refer to experimental conditions or heat processes of specimen fabrication.
 
 \begin{table}[h!]
     \centering
@@ -168,7 +171,7 @@ In the Extraction phase (Table \ref{table:result-extraction}), in particular for
 
 The results of the linking process (Table  \ref{table:result-linking}) showed extremely low (\textless 10/\%) recall. This is in line with the fact that Rule-Base approaches have tendency to be biased toward precision. 
 
-We recorded precision using different boundaries to select the span of search for links to a specific material. Precision averaged around 68\% for sentence boundaries which was decreasing to 57\% using paragraph boundaries. 
+In table \ref{table:result-linking} we report linking precision using sentences or paragraphs as constraints for the search interval for links to materials. Precision averaged around 68\% using sentences which was decreasing to 57\% while using paragraphs. 
 
 \begin{table}[h!]
     \centering
