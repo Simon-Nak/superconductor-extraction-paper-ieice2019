@@ -1,0 +1,786 @@
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns:z="http://www.zotero.org/namespaces/export#"
+ xmlns:dcterms="http://purl.org/dc/terms/"
+ xmlns:bib="http://purl.org/net/biblio#"
+ xmlns:foaf="http://xmlns.com/foaf/0.1/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/">
+    <bib:Document rdf:about="https://en.wikipedia.org/wiki/Superconductivity">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>contributors</foaf:surname>
+                        <foaf:givenname>Wikipedia</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://en.wikipedia.org/wiki/Superconductivity</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>2001 — 2019</dc:date>
+        <dc:title>Superconductivity Wikipedia Page</dc:title>
+    </bib:Document>
+    <bib:Article rdf:about="#item_3">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>24</prism:volume>
+                <dc:title>Journal of Information Processing</dc:title>
+                <dc:identifier>DOI 10.2197/ipsjjip.24.554</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Dieb</foaf:surname>
+                        <foaf:givenname>Thaer</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Yoshioka</foaf:surname>
+                        <foaf:givenname>Masaharu</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hara</foaf:surname>
+                        <foaf:givenname>Shinjiro</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:date>05 2016</dc:date>
+        <dc:title>NaDev: An Annotated Corpus to Support Information Extraction from Research Papers on Nanocrystal Devices</dc:title>
+    </bib:Article>
+    <bib:Document rdf:about="https://github.com/kermitt2/grobid">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Contributors</foaf:surname>
+                        <foaf:givenname>GROBID</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://github.com/kermitt2/grobid</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>2008 — 2019</dc:date>
+        <dc:title>GROBID</dc:title>
+    </bib:Document>
+    <bib:Document rdf:about="https://github.com/kermitt2/grobid-quantities">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Contributors</foaf:surname>
+                        <foaf:givenname>GROBID</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://github.com/kermitt2/grobid-quantities</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>2016 — 2019</dc:date>
+        <dc:title>grobid-quantities: GROBID extension for identifying and normalising physical quantities.</dc:title>
+    </bib:Document>
+    <bib:Document rdf:about="https://github.com/Impactstory/software-mentions">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Contributors</foaf:surname>
+                        <foaf:givenname>GROBID</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://github.com/Impactstory/software-mentions</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>2018 — 2019</dc:date>
+        <dc:title>software-mentions: GROBID module to recognize in textual documents and PDF any mentions of software.</dc:title>
+    </bib:Document>
+    <bib:Document rdf:about="https://bitbucket.org/lfoppiano/chemspot-web">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Foppiano</foaf:surname>
+                        <foaf:givenname>Luca</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://bitbucket.org/lfoppiano/chemspot-web</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>2019</dc:date>
+        <dc:title>Chemspot-web</dc:title>
+    </bib:Document>
+    <bib:Document rdf:about="https://supercon.nims.go.jp/">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Science</foaf:surname>
+                        <foaf:givenname>National Institute for Materials</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://supercon.nims.go.jp/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:title>SuperCon</dc:title>
+    </bib:Document>
+    <bib:Document rdf:about="https://krisjack.wordpress.com/2015/03/12/how-well-does-mendeleys-metadata-extraction-work/">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Gooch</foaf:surname>
+                        <foaf:givenname>Phil</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Jack</foaf:surname>
+                        <foaf:givenname>Kris</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://krisjack.wordpress.com/2015/03/12/how-well-does-mendeleys-metadata-extraction-work/</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:title>How well does Mendeley’s Metadata Extraction Work?</dc:title>
+    </bib:Document>
+    <bib:Article rdf:about="http://arxiv.org/abs/1812.01995">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>abs/1812.01995</prism:volume>
+                <dc:title>CoRR</dc:title>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Konno</foaf:surname>
+                        <foaf:givenname>Tomohiko</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kurokawa</foaf:surname>
+                        <foaf:givenname>Hodaka</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Nabeshima</foaf:surname>
+                        <foaf:givenname>Fuyuki</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Ogawa</foaf:surname>
+                        <foaf:givenname>Ryo</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Iwazume</foaf:surname>
+                        <foaf:givenname>Michiaki</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hosako</foaf:surname>
+                        <foaf:givenname>Iwao</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Maeda</foaf:surname>
+                        <foaf:givenname>Atsutaka</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>http://arxiv.org/abs/1812.01995</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>2018</dc:date>
+        <dc:title>Deep Learning of Superconductors I: Estimation of Critical Temperature of Superconductors Toward the Search for New Materials</dc:title>
+    </bib:Article>
+    <bib:Article rdf:about="https://doi.org/10.1093/bioinformatics/bts183">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:1367-4803"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Rocktäschel</foaf:surname>
+                        <foaf:givenname>Tim</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Weidlich</foaf:surname>
+                        <foaf:givenname>Michael</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Leser</foaf:surname>
+                        <foaf:givenname>Ulf</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://doi.org/10.1093/bioinformatics/bts183</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <bib:pages>1633-1640</bib:pages>
+        <dc:date>04 2012</dc:date>
+        <dcterms:abstract>Motivation: The accurate identification of chemicals in text is important for many applications, including computer-assisted reconstruction of metabolic networks or retrieval of information about substances in drug development. But due to the diversity of naming conventions and traditions for such molecules, this task is highly complex and should be supported by computational tools.Results: We present ChemSpot, a named entity recognition (NER) tool for identifying mentions of chemicals in natural language texts, including trivial names, drugs, abbreviations, molecular formulas and International Union of Pure and Applied Chemistry entities. Since the different classes of relevant entities have rather different naming characteristics, ChemSpot uses a hybrid approach combining a Conditional Random Field with a dictionary. It achieves an F1 measure of 68.1% on the SCAI corpus, outperforming the only other freely available chemical NER tool, OSCAR4, by 10.8 percentage points.Availability: ChemSpot is freely available at: http://www.informatik.hu-berlin.de/wbi/resourcesContact:leser@informatik.hu-berlin.de</dcterms:abstract>
+        <dc:title>ChemSpot: a hybrid system for chemical named entity recognition</dc:title>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:1367-4803">
+        <prism:volume>28</prism:volume>
+        <prism:number>12</prism:number>
+        <dc:title>Bioinformatics</dc:title>
+        <dc:identifier>ISSN 1367-4803</dc:identifier>
+        <dc:identifier>DOI 10.1093/bioinformatics/bts183</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="#item_15">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+               <prism:volume>5</prism:volume><dc:title>Scientific data</dc:title>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Court</foaf:surname>
+                        <foaf:givenname>Callum J</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Cole</foaf:surname>
+                        <foaf:givenname>Jacqueline M</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:pages>180111</bib:pages>
+        <dc:date>2018</dc:date>
+        <dc:title>Auto-generated materials database of Curie and Néel temperatures via semi-supervised relationship extraction</dc:title>
+    </bib:Article>
+    <bib:Article rdf:about="http://arxiv.org/abs/1802.01168">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>abs/1802.01168</prism:volume>
+                <dc:title>CoRR</dc:title>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Tkaczyk</foaf:surname>
+                        <foaf:givenname>Dominika</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Collins</foaf:surname>
+                        <foaf:givenname>Andrew</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Sheridan</foaf:surname>
+                        <foaf:givenname>Paraic</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Beel</foaf:surname>
+                        <foaf:givenname>Jöran</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>http://arxiv.org/abs/1802.01168</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>2018</dc:date>
+        <dc:title>Evaluation and Comparison of Open Source Bibliographic Reference Parsers: A Business Use Case</dc:title>
+    </bib:Article>
+    <rdf:Description rdf:about="#item_17">
+        <z:itemType>conferencePaper</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+               <dc:title>electronic lexicography, eLex 2017</dc:title>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Khemakhem</foaf:surname>
+                        <foaf:givenname>Mohamed</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Foppiano</foaf:surname>
+                        <foaf:givenname>Luca</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Romary</foaf:surname>
+                        <foaf:givenname>Laurent</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:date>2017</dc:date>
+        <dc:title>Automatic extraction of TEI structures in digitized lexical resources using conditional random fields</dc:title>
+    </rdf:Description>
+    <bib:Document rdf:about="https://github.com/kermitt2/grobid-astro">
+        <z:itemType>webpage</z:itemType>
+        <dcterms:isPartOf>
+           <z:Website></z:Website>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Contributors</foaf:surname>
+                        <foaf:givenname>GROBID</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://github.com/kermitt2/grobid-astro</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <dc:date>2016 — 2019</dc:date>
+        <dc:title>grobid-astro: A machine learning software for extracting astronomical entities from scholarly documents.</dc:title>
+    </bib:Document>
+    <bib:Article rdf:about="#item_20">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+           <bib:Journal></bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Lafferty</foaf:surname>
+                        <foaf:givenname>John</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>McCallum</foaf:surname>
+                        <foaf:givenname>Andrew</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Pereira</foaf:surname>
+                        <foaf:givenname>Fernando CN</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:date>2001</dc:date>
+        <dc:title>Conditional random fields: Probabilistic models for segmenting and labeling sequence data</dc:title>
+    </bib:Article>
+    <bib:Article rdf:about="https://link.aps.org/doi/10.1103/PhysRevMaterials.2.024802">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>2</prism:volume>
+                <prism:number>2</prism:number>
+                <dc:title>Phys. Rev. Materials</dc:title>
+                <dc:identifier>DOI 10.1103/PhysRevMaterials.2.024802</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Geilhufe</foaf:surname>
+                        <foaf:givenname>R. Matthias</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Borysov</foaf:surname>
+                        <foaf:givenname>Stanislav S.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Kalpakchi</foaf:surname>
+                        <foaf:givenname>Dmytro</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Balatsky</foaf:surname>
+                        <foaf:givenname>Alexander V.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://link.aps.org/doi/10.1103/PhysRevMaterials.2.024802</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <bib:pages>024802</bib:pages>
+        <dc:date>February 2018</dc:date>
+        <dc:title>Towards novel organic high-$T_c$ superconductors: Data mining using density of states similarity search</dc:title>
+    </bib:Article>
+    <bib:Article rdf:about="#item_22">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>6</prism:volume>
+                <dc:title>Beilstein Journal of Nanotechnology</dc:title>
+                <dc:identifier>DOI 10.3762/bjnano.6.190</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Dieb</foaf:surname>
+                        <foaf:givenname>Thaer</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Yoshioka</foaf:surname>
+                        <foaf:givenname>Masaharu</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hara</foaf:surname>
+                        <foaf:givenname>Shinjiro</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>C Newton</foaf:surname>
+                        <foaf:givenname>Marcus</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:pages>1872-1882</bib:pages>
+        <dc:date>09 2015</dc:date>
+        <dc:title>Framework for automatic information extraction from research papers on nanocrystal devices</dc:title>
+    </bib:Article>
+    <bib:Article rdf:about="https://doi.org/10.1021/cm503507h">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>27</prism:volume>
+                <prism:number>3</prism:number>
+                <dc:title>Chemistry of Materials</dc:title>
+                <dc:identifier>DOI 10.1021/cm503507h</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Isayev</foaf:surname>
+                        <foaf:givenname>Olexandr</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Fourches</foaf:surname>
+                        <foaf:givenname>Denis</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Muratov</foaf:surname>
+                        <foaf:givenname>Eugene N.</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Oses</foaf:surname>
+                        <foaf:givenname>Corey</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Rasch</foaf:surname>
+                        <foaf:givenname>Kevin</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Tropsha</foaf:surname>
+                        <foaf:givenname>Alexander</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Curtarolo</foaf:surname>
+                        <foaf:givenname>Stefano</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+               <rdf:value>https://doi.org/10.1021/cm503507h</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <bib:pages>735-743</bib:pages>
+        <dc:date>2015</dc:date>
+        <dc:title>Materials Cartography: Representing and Mining Materials Space Using Structural and Electronic Fingerprints</dc:title>
+    </bib:Article>
+    <bib:Article rdf:about="https://doi.org/10.1080/14686996.2018.1548885">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>19</prism:volume>
+                <prism:number>1</prism:number>
+                <dc:title>Science and Technology of Advanced Materials</dc:title>
+                <dc:identifier>DOI 10.1080/14686996.2018.1548885</dc:identifier>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Matsumoto</foaf:surname>
+                        <foaf:givenname>Ryo</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hou</foaf:surname>
+                        <foaf:givenname>Zhufeng</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Nagao</foaf:surname>
+                        <foaf:givenname>Masanori</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Adachi</foaf:surname>
+                        <foaf:givenname>Shintaro</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hara</foaf:surname>
+                        <foaf:givenname>Hiroshi</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Tanaka</foaf:surname>
+                        <foaf:givenname>Hiromi</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Nakamura</foaf:surname>
+                        <foaf:givenname>Kazuki</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Murakami</foaf:surname>
+                        <foaf:givenname>Ryo</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Yamamoto</foaf:surname>
+                        <foaf:givenname>Sayaka</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Takeya</foaf:surname>
+                        <foaf:givenname>Hiroyuki</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Irifune</foaf:surname>
+                        <foaf:givenname>Tetsuo</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Terakura</foaf:surname>
+                        <foaf:givenname>Kiyoyuki</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Takano</foaf:surname>
+                        <foaf:givenname>Yoshihiko</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>https://doi.org/10.1080/14686996.2018.1548885</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <bib:pages>909-916</bib:pages>
+        <dc:date>2018</dc:date>
+        <dc:description>PMID: 30636994</dc:description>
+        <dc:title>Data-driven exploration of new pressure-induced superconductivity in PbBi2Te4</dc:title>
+    </bib:Article>
+    <bib:Article rdf:about="http://www.sciencedirect.com/science/article/pii/S0927025618304877">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf rdf:resource="urn:issn:0927-0256"/>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Hamidieh</foaf:surname>
+                        <foaf:givenname>Kam</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <dc:subject>Critical temperature</dc:subject>
+        <dc:subject>Data mining</dc:subject>
+        <dc:subject>Machine learning</dc:subject>
+        <dc:subject>Statistical learning</dc:subject>
+        <dc:subject>Superconductivity</dc:subject>
+        <dc:subject>Superconductor</dc:subject>
+        <dc:identifier>
+            <dcterms:URI>
+                <rdf:value>http://www.sciencedirect.com/science/article/pii/S0927025618304877</rdf:value>
+            </dcterms:URI>
+        </dc:identifier>
+        <bib:pages>346 - 354</bib:pages>
+        <dc:date>2018</dc:date>
+        <dcterms:abstract>We estimate a statistical model to predict the superconducting critical temperature based on the features extracted from the superconductor’s chemical formula. The statistical model gives reasonable out-of-sample predictions: ±9.5 K based on root-mean-squared-error. Features extracted based on thermal conductivity, atomic radius, valence, electron affinity, and atomic mass contribute the most to the model’s predictive accuracy. It is crucial to note that our model does not predict whether a material is a superconductor or not; it only gives predictions for superconductors.</dcterms:abstract>
+        <dc:title>A data-driven statistical model for predicting the critical temperature of a superconductor</dc:title>
+    </bib:Article>
+    <bib:Journal rdf:about="urn:issn:0927-0256">
+        <prism:volume>154</prism:volume>
+        <dc:title>Computational Materials Science</dc:title>
+        <dc:identifier>ISSN 0927-0256</dc:identifier>
+        <dc:identifier>DOI https://doi.org/10.1016/j.commatsci.2018.07.052</dc:identifier>
+    </bib:Journal>
+    <bib:Article rdf:about="#item_26">
+        <z:itemType>journalArticle</z:itemType>
+        <dcterms:isPartOf>
+            <bib:Journal>
+                <prism:volume>67</prism:volume>
+                <dc:title>Computational materials science</dc:title>
+            </bib:Journal>
+        </dcterms:isPartOf>
+        <bib:authors>
+            <rdf:Seq>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Klintenberg</foaf:surname>
+                        <foaf:givenname>Mattias</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+                <rdf:li>
+                    <foaf:Person>
+                        <foaf:surname>Eriksson</foaf:surname>
+                        <foaf:givenname>Olle</foaf:givenname>
+                    </foaf:Person>
+                </rdf:li>
+            </rdf:Seq>
+        </bib:authors>
+        <bib:pages>282–286</bib:pages>
+        <dc:date>2013</dc:date>
+        <dc:title>Possible high-temperature superconductors predicted from electronic structure and data-filtering algorithms</dc:title>
+    </bib:Article>
+</rdf:RDF>
